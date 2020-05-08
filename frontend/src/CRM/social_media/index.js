@@ -66,15 +66,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SM() {
     const classes = useStyles();
-    const [products, setProducts] = useState([]);
+    const [photo, setPhoto] = useState([]);
     var answer;
     
     useEffect(() => {
       try {
         api.get('crm/photo', {}).then(response => {
           if (response.data !== '') {
-           setProducts(response.data);
-           answer = response;
+           setPhoto(response.data);
+           answer = response.error;
           }
           
         })
@@ -83,8 +83,8 @@ export default function SM() {
           console.log('health check error');
           alert("Could not retrive data from the server. Please refresh the page!")
         });
-      } catch (err) {
-        console.log(answer)
+      } catch (error) {
+        console.log('health check error');
         alert("Could not retrive data from the server. /nPlease refresh the page!")
       }
     }, [])
@@ -99,7 +99,7 @@ export default function SM() {
             <div className={classes.toolbar} />
             <BootstrapTable 
               keyField='id'
-              data={ products }
+              data={ photo }
               columns={ columns }
               pagination={ paginationFactory() }
               filter={ filterFactory() }
