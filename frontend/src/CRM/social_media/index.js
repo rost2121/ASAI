@@ -6,7 +6,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 
 import axios from 'axios';
 
@@ -68,16 +67,25 @@ const useStyles = makeStyles((theme) => ({
 export default function SM() {
     const classes = useStyles();
     const [products, setProducts] = useState([]);
+    var answer;
     
     useEffect(() => {
       try {
         api.get('crm/photo', {}).then(response => {
           if (response.data !== '') {
            setProducts(response.data);
+           answer = response;
           }
+          
         })
+        .catch(error => {
+          if (error.response) 
+          console.log('health check error');
+          alert("Could not retrive data from the server. Please refresh the page!")
+        });
       } catch (err) {
-        console.log('Error on get users list')
+        console.log(answer)
+        alert("Could not retrive data from the server. /nPlease refresh the page!")
       }
     }, [])
     
