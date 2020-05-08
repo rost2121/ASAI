@@ -13,7 +13,7 @@ class Photo extends Model {
   }
 
   static associate(models) {
-    this.hasMany(models.Product, { foreignKey: 'id', as: 'product' });
+    this.hasMany(models.Product, { foreignKey: 'id', as: 'Product' });
   }
 }
 
